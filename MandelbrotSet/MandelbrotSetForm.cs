@@ -43,8 +43,8 @@ namespace MandelbrotSetApplication
 
         private static int colouringMethod = NO_COLOURING;
         private static double maxModulus = 2.0d;
-        
-        private Bitmap mandelbrotSetBitmap = new Bitmap(800, 600); //The size of the bitmap is set initially to 800x600.
+
+        private Bitmap mandelbrotSetBitmap;
                 
         
         
@@ -55,7 +55,7 @@ namespace MandelbrotSetApplication
         public MandelbrotSetForm()
         {
             InitializeComponent();
-
+            mandelbrotSetBitmap = new Bitmap(mandelbrotSetPictureBox.Width, mandelbrotSetPictureBox.Height);
             //Add items to the object 'colouringMethodComboBox.'
             colouringMethodComboBox.Text = "None";
             colouringMethodComboBox.Items.Add("None");
@@ -63,12 +63,7 @@ namespace MandelbrotSetApplication
             colouringMethodComboBox.Items.Add("Modulus Method");
             colouringMethodComboBox.Items.Add("Trigonometric Method");
         }
-
-        
-        /*
-         * EVENT HANDLER METHODS
-         */
-                
+  
         private void displayMandelbrotSetButton_Click(object sender, EventArgs e)
         {
 
@@ -95,7 +90,7 @@ namespace MandelbrotSetApplication
                     //The real and imaginary parts of the 'c' are determined by the linear transformations that map
                     //the region of the Cartesian plane in which 0<=x<800, 0<=y<600 to the region of the Complex plane
                     //in which -2.5<=Re(z)<1.5 and -1.5<=Im(z)<1.5
-                    c = new Complex(4.0d / width*x - 2.5d, -3.0d / height*y + 1.5d);
+                    c = new Complex((4.0d / width)*x - 2.5d, -3.0d / height*y + 1.5d);
                     z = 0;
                     int iterations=0;
                     
@@ -180,9 +175,9 @@ namespace MandelbrotSetApplication
         private void mandelbrotSetPictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             mouseCoordinatesLabel.Text = "(" + e.X + ", " + e.Y + ")";
-            complexPlaneCoordinatesLabel.Text = "(" + Math.Round(4.0d / mandelbrotSetBitmap.Width * e.X - 2.5d,2)
+            complexPlaneCoordinatesLabel.Text = "(" + Math.Round(4.0d / mandelbrotSetBitmap.Width * e.X - 2.5d, 2)
                                                     + ", " + Math.Round(-3.0d / mandelbrotSetBitmap.Height * e.Y + 1.5d, 2) + ")";
         }
 
     }
-}
+}   

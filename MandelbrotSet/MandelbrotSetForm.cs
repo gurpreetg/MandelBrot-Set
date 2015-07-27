@@ -15,31 +15,12 @@ using System.Numerics;
 namespace MandelbrotSetApplication
 {
     
-    /**
-     * Definition of the class 'MandelbrotSetForm.' This class inherits all the members of the 'Form' class.
-     */
+   
     
     public partial class MandelbrotSetForm : Form
     {
-        /**
-         * DATA MEMBERS of the class 'MandelbrotSetForm.'
-         * 
-         * These constants, variables and objects are GLOBAL to the class.
-         * 
-         * Data members can be declared as 'public,' 'private' or 'protected.' The keywords 'public,' 'private' 
-         * and 'protected'are known as "MEMBER ACCESS MODIFIERS" because they define the level of access to the data members.
-         * 
-         * private   -> The member can only be accessed within the class or structure in which it is declared.
-         *              This is the least permissive access level.
-         * public    -> The member can be accessed by any class. There are no restrictions on accessing public members.
-         *              This is the most permissive access level.
-         * protected -> The member is accessible from within the class in which it is declared and and from within any
-         *              class derived from the class that declared this member. This level of access is intermediate
-         *              between 'public' and 'private.'
-         */
-        
-
-        private const int NO_COLOURING=0, ITERATIONS = 1, MODULUS = 2, TRIG = 3;
+       
+        private const int NO_COLOURING=0, ITERATIONS = 1, MODULUS = 2, TRIG = 3, LOGISTIC = 4;
 
         private static int colouringMethod = NO_COLOURING;
         private static double maxModulus = 2.0d;
@@ -62,6 +43,7 @@ namespace MandelbrotSetApplication
             colouringMethodComboBox.Items.Add("Iterations Method");
             colouringMethodComboBox.Items.Add("Modulus Method");
             colouringMethodComboBox.Items.Add("Trigonometric Method");
+            colouringMethodComboBox.Items.Add("Logistic Growth Method");
         }
   
         private void displayMandelbrotSetButton_Click(object sender, EventArgs e)
@@ -138,10 +120,10 @@ namespace MandelbrotSetApplication
             {
                 if (modulus >= 2.0d)
                 {
-                    int red=(int)(2.55f * repetitions);
-                    int green=red;
-                    int blue=(int)(255 - 2.55f * repetitions);
-                    return Color.FromArgb(red,green,blue);
+                    int red = (int)Math.Abs(255 * Math.Sin(repetitions / 30));
+                    int green = (int)Math.Abs(255 * Math.Sin(repetitions / 2));
+                    int blue = (int)Math.Abs(255 * Math.Cos(repetitions / 30));
+                    return Color.FromArgb(red, green, blue);
                 }
                 else
                     return Color.Black;
@@ -166,7 +148,21 @@ namespace MandelbrotSetApplication
                 int green = (red < blue) ? red : blue; //Set green to smaller of red and blue
                 return Color.FromArgb(red, green, blue);
             }
-            else if (modulus < 2.0d) //
+            else if (colourMethod == LOGISTIC)
+            {
+                if (modulus >= 2.0d)
+                {
+                    double A = (255d - repetitions) / repetitions;
+
+                    int red = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * modulus * c.Real)));
+                    int blue = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * repetitions * c.Imaginary)));
+                    int green = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * repetitions * blue)));
+                    return Color.FromArgb(red, green, blue);
+                }
+                else
+                    return Color.Black;
+            }
+            else if (modulus < 2.0d)
                 return Color.Black;
             else
                 return Color.White;

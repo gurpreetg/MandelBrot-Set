@@ -42,7 +42,7 @@
             // mandelbrotSetPictureBox
             // 
             this.mandelbrotSetPictureBox.Location = new System.Drawing.Point(13, -1);
-            this.mandelbrotSetPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mandelbrotSetPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.mandelbrotSetPictureBox.Name = "mandelbrotSetPictureBox";
             this.mandelbrotSetPictureBox.Size = new System.Drawing.Size(1102, 738);
             this.mandelbrotSetPictureBox.TabIndex = 0;
@@ -53,7 +53,7 @@
             // displayMandelbrotSetButton
             // 
             this.displayMandelbrotSetButton.Location = new System.Drawing.Point(5, 746);
-            this.displayMandelbrotSetButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.displayMandelbrotSetButton.Margin = new System.Windows.Forms.Padding(4);
             this.displayMandelbrotSetButton.Name = "displayMandelbrotSetButton";
             this.displayMandelbrotSetButton.Size = new System.Drawing.Size(249, 55);
             this.displayMandelbrotSetButton.TabIndex = 1;
@@ -78,7 +78,7 @@
             this.colouringMethodComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colouringMethodComboBox.FormattingEnabled = true;
             this.colouringMethodComboBox.Location = new System.Drawing.Point(435, 761);
-            this.colouringMethodComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.colouringMethodComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.colouringMethodComboBox.Name = "colouringMethodComboBox";
             this.colouringMethodComboBox.Size = new System.Drawing.Size(228, 28);
             this.colouringMethodComboBox.TabIndex = 3;
@@ -137,9 +137,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.displayMandelbrotSetButton);
             this.Controls.Add(this.mandelbrotSetPictureBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MandelbrotSetForm";
-            this.Text = "Form1";
+            this.Text = "MandelBrot Set";
             ((System.ComponentModel.ISupportInitialize)(this.mandelbrotSetPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

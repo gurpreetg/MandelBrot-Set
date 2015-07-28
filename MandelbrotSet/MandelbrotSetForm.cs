@@ -40,7 +40,7 @@ namespace MandelbrotSetApplication
   
         private void displayMandelbrotSetButton_Click(object sender, EventArgs e)
         {
-
+            this.Cursor = Cursors.WaitCursor;
             Graphics mandelbrotSetImage = Graphics.FromImage(mandelbrotSetBitmap);
             
             //Instantiations of the 'Complex' class. Create two complex objects, 'c' and 'z.'
@@ -80,6 +80,7 @@ namespace MandelbrotSetApplication
             }//end outer for
 
             mandelbrotSetPictureBox.Refresh();
+            this.Cursor = Cursors.Default;
         }
 
         private void mandelbrotSetPictureBox_Paint(object sender, PaintEventArgs e)
@@ -101,9 +102,9 @@ namespace MandelbrotSetApplication
          * OTHER METHODS FOR INTERNAL USE ONLY
          */
 
-        private static Color pixelColour(int colourMethod, int repetitions, Complex c)
+        private static Color pixelColour(int colourMethod, int repetitions, Complex z)
         {
-            double modulus = Complex.Abs(c);
+            double modulus = Complex.Abs(z);
 
             if (colourMethod == ITERATIONS)
             {
@@ -132,8 +133,8 @@ namespace MandelbrotSetApplication
             }
             else if (colourMethod == TRIG)
             {
-                int red = 255 - (int)(255 * Complex.Abs(Math.Sin(c.Real)));
-                int blue = 255 - (int)(255 * Complex.Abs(Math.Cos(c.Imaginary)));
+                int red = 255 - (int)(255 * Complex.Abs(Math.Sin(z.Real)));
+                int blue = 255 - (int)(255 * Complex.Abs(Math.Cos(z.Imaginary)));
                 int green = (red < blue) ? red : blue; //Set green to smaller of red and blue
                 return Color.FromArgb(red, green, blue);
             }
@@ -143,8 +144,8 @@ namespace MandelbrotSetApplication
                 {
                     double A = (255d - repetitions) / repetitions;
 
-                    int red = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * modulus * c.Real)));
-                    int blue = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * repetitions * c.Imaginary)));
+                    int red = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * modulus * z.Real)));
+                    int blue = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * repetitions * z.Imaginary)));
                     int green = (int)(255d / (1 + A * Math.Pow(Math.E, -1d * repetitions * blue)));
                     return Color.FromArgb(red, green, blue);
                 }

@@ -14,9 +14,7 @@ using System.Numerics;
 
 namespace MandelbrotSetApplication
 {
-    
-   
-    
+  
     public partial class MandelbrotSetForm : Form
     {
        
@@ -26,13 +24,7 @@ namespace MandelbrotSetApplication
         private static double maxModulus = 2.0d;
 
         private Bitmap mandelbrotSetBitmap;
-                
-        
-        
-        /**
-         * Constructor Method for the class 'MandelbrotSetForm.' This method is called as soon as the form object is created.
-         * This constructor should include any statements that need to be executed before the user interacts with the program.
-         */
+ 
         public MandelbrotSetForm()
         {
             InitializeComponent();
@@ -57,7 +49,6 @@ namespace MandelbrotSetApplication
             Complex c =new Complex(0,0);
 
             //For efficiency reasons, copy the 'Width' and 'Height' properties to variables.
-            //This is called "caching" the values of properties.
             int width = mandelbrotSetBitmap.Width;
             int height = mandelbrotSetBitmap.Height;
 
@@ -70,8 +61,7 @@ namespace MandelbrotSetApplication
                 for (int y = 0; y < height; y++)
                 {
                     //The real and imaginary parts of the 'c' are determined by the linear transformations that map
-                    //the region of the Cartesian plane in which 0<=x<800, 0<=y<600 to the region of the Complex plane
-                    //in which -2.5<=Re(z)<1.5 and -1.5<=Im(z)<1.5
+                    //the region of the Cartesian plane to the region of the Complex plane
                     c = new Complex((4.0d / width)*x - 2.5d, -3.0d / height*y + 1.5d);
                     z = 0;
                     int iterations=0;
@@ -89,7 +79,6 @@ namespace MandelbrotSetApplication
                 }//end inner for
             }//end outer for
 
-            //Display the Mandelbrot set by firing the 'Paint' event on 'mandelbrotSetPictureBox.'
             mandelbrotSetPictureBox.Refresh();
         }
 

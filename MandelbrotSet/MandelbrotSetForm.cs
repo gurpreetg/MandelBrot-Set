@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -19,7 +20,7 @@ namespace MandelbrotSetApplication
     {
        
         private const int NO_COLOURING=0, ITERATIONS = 1, MODULUS = 2, TRIG = 3, LOGISTIC = 4;
-
+        private const int maxIterations = 100;
         private static int colouringMethod = NO_COLOURING;
         private static double maxModulus = 2.0d;
 
@@ -56,9 +57,10 @@ namespace MandelbrotSetApplication
             mandelbrotSetPictureBox.Refresh();
 
             //Traverse the bitmap one pixel at a time, column by column. Screen co-ordinates are (x,y).
+            //For efficiency, only render half and then copy the rest.
             for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < height / 2; y++)
                 {
                     //The real and imaginary parts of the 'c' are determined by the linear transformations that map
                     //the region of the Cartesian plane to the region of the Complex plane
@@ -72,12 +74,21 @@ namespace MandelbrotSetApplication
                     {
                         z = Complex.Add(Complex.Pow(z, 2), c);//z=z^2+c
                         iterations++;
-                    }while(Complex.Abs(z)<maxModulus && iterations<=100);
+                    }while(Complex.Abs(z)<maxModulus && iterations<= maxIterations);
 
                     mandelbrotSetBitmap.SetPixel(x, y, pixelColour(colouringMethod, iterations-1, z));
                     
                 }//end inner for
             }//end outer for
+
+            //Copying the rest
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = height / 2; y < height; y++)
+                {
+                    mandelbrotSetBitmap.SetPixel(x, y, mandelbrotSetBitmap.GetPixel(x, height - y - 1));
+                }
+            }
 
             mandelbrotSetPictureBox.Refresh();
             this.Cursor = Cursors.Default;

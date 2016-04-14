@@ -60,7 +60,7 @@ namespace MandelbrotSetApplication
             //For efficiency, only render half and then copy the rest.
             for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < height / 2; y++)
+                for (int y = 0; y <= height / 2; y++)
                 {
                     //The real and imaginary parts of the 'c' are determined by the linear transformations that map
                     //the region of the Cartesian plane to the region of the Complex plane
@@ -93,6 +93,7 @@ namespace MandelbrotSetApplication
             mandelbrotSetPictureBox.Refresh();
             this.Cursor = Cursors.Default;
         }
+
 
         private void mandelbrotSetPictureBox_Paint(object sender, PaintEventArgs e)
         {
